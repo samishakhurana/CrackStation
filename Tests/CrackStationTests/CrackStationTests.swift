@@ -31,6 +31,22 @@ final class CrackStationTests: XCTestCase {
         let crackPswdInstance = CrackStation()
         let value = crackPswdInstance.decrypt(shaHash: hashString)
         
-        XCTAssertEqual(value, "invalid")
+        XCTAssertEqual(value, nil)
+    }
+    
+    func testGetPlaneTextForHash5() throws {
+        let hashString = "2c419ecc92764743f64744ccdd6bcb85e34e5ae8"
+        let crackPswdInstance = CrackStation()
+        let value = crackPswdInstance.decrypt(shaHash: hashString)
+        
+        XCTAssertEqual(value, "Aa")
+    }
+    
+    func testGetPlaneTextForHash6() throws {
+        let hashString = "9a79be611e0267e1d943da0737c6c51be67865a0"
+        let crackPswdInstance = CrackStation()
+        let value = crackPswdInstance.decrypt(shaHash: hashString)
+        
+        XCTAssertEqual(value, "99")
     }
 }

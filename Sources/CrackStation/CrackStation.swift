@@ -25,6 +25,6 @@ public struct CrackStation: Decrypter {
     }
     
     public func decrypt(shaHash: String) -> String? {
-        return self.lookupTable[shaHash] ?? "invalid"
+        return self.lookupTable[shaHash] ?? nil
     }
 }
