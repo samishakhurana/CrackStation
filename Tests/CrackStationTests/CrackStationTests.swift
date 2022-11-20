@@ -1,4 +1,6 @@
 import XCTest
+import CryptoKit
+import Foundation
 @testable import CrackStation
 
 final class CrackStationTests: XCTestCase {
@@ -48,5 +50,54 @@ final class CrackStationTests: XCTestCase {
         let value = crackPswdInstance.decrypt(shaHash: hashString)
         
         XCTAssertEqual(value, "99")
+    }
+    
+    func testGetPlaneTextForHash7() throws {
+        let hashString = "2b05728046b3584193044ff8871fbef84737b660"
+        let crackPswdInstance = CrackStation()
+        let value = crackPswdInstance.decrypt(shaHash: hashString)
+        
+        XCTAssertEqual(value, "?ab")
+    }
+    
+    func testGetPlaneTextForHash8() throws {
+        let hashString = "bcbb1abbf05e44a255473429c1b1e7430313afab21a3c6aa04df81196dcbd7c8"
+        let crackPswdInstance = CrackStation()
+        let value = crackPswdInstance.decrypt(shaHash: hashString)
+        
+        XCTAssertEqual(value, "?ab")
+    }
+    
+    func testGetPlaneTextForHash9() throws {
+        let hashString = "c005b3f2d23c83c9d07e397185cc8816e5ea95e3d30d80f9f69424c31b4f7ceb"
+        let crackPswdInstance = CrackStation()
+        let value = crackPswdInstance.decrypt(shaHash: hashString)
+        
+        XCTAssertEqual(value, "?1A")
+    }
+    
+    func testGetPlaneTextForHash10() throws {
+        let crackPswdInstance = CrackStation()
+        
+        let charArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "0", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        
+        
+        
+        for val1 in charArray {
+            for val2 in charArray {
+                for val3 in charArray {
+                    let str = val1 + val2 + val3
+                    
+                    let dataToHash = Data(str.utf8)
+                    let shaHashDescription = String(Insecure.SHA1.hash(data: dataToHash).description)
+                    let prefix = "SHA 1 digest: "
+                    let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
+                    
+                    let value = crackPswdInstance.decrypt(shaHash: shaHash)
+                    
+                    XCTAssertEqual(value, str)
+                }
+            }
+        }
     }
 }
