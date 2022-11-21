@@ -21,7 +21,7 @@ let package = Package(
         .target(
             name: "CrackStation",
             dependencies: [],
-            resources: [.process("hashMap.json")]
+            resources: [.process("hashMap1.json"), .process("hashMap2.json")]
         ),
         .testTarget(
             name: "CrackStationTests",

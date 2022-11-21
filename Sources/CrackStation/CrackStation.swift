@@ -1,18 +1,25 @@
 import Foundation
 
 public struct CrackStation: Decrypter {
-    private let lookupTable: [String : String]
+    private let lookupTableSHA1: [String : String]
+    private let lookupTableSHA256: [String : String]
     
     public init() {
         do {
-            self.lookupTable = try CrackStation.loadDictionaryFromDisk()
+            self.lookupTableSHA1 = try CrackStation.loadDictionaryFromDisk(fileName: "hashMap1")
         } catch {
-            self.lookupTable = [:]
+            self.lookupTableSHA1 = [:]
+        }
+        
+        do {
+            self.lookupTableSHA256 = try CrackStation.loadDictionaryFromDisk(fileName: "hashMap2")
+        } catch {
+            self.lookupTableSHA256 = [:]
         }
     }
     
-    static func loadDictionaryFromDisk() throws -> [String : String] {
-        guard let path = Bundle.module.url(forResource: "hashMap", withExtension: "json") else { return [:] }
+    static func loadDictionaryFromDisk(fileName: String) throws -> [String : String] {
+        guard let path = Bundle.module.url(forResource: fileName, withExtension: "json") else { return [:] }
 
         let data = try Data(contentsOf: path)
         let jsonResult = try JSONSerialization.jsonObject(with: data)
@@ -25,6 +32,6 @@ public struct CrackStation: Decrypter {
     }
     
     public func decrypt(shaHash: String) -> String? {
-        return self.lookupTable[shaHash] ?? nil
+        return self.lookupTableSHA1[shaHash] ?? self.lookupTableSHA256[shaHash]
     }
 }
