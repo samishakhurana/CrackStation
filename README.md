@@ -8,7 +8,7 @@ This swift package is built as a part of an assignment for Software Engineering 
 
 ## Mission Statement
 
-The aim is to understanding how password decryption works, basics of hash functions and introduction to security domain. It promotes us to think why Password Salting is important in all applications and how easily our passwords can be cracked if backend application is not storing them properly. This exercise will definitely help students keep the security aspect in mind while developing future applications.
+The aim is to understand how password decryption works, basics of hash functions and introduction to security domain. It promotes us to think why Password Salting is important in all applications and how easily our passwords can be cracked if backend application is not storing them properly. This exercise will definitely help students keep the security aspect in mind while developing future applications.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Once you have your Swift Packet Manager setup, add crackstation to the list of d
 
 ```
   dependencies: [
-    .package(url: "git@github.com:samishakhurana/CrackStation.git", .upToNextMajor(from: "1.0.0")),
+    .package(url: "git@github.com:samishakhurana/CrackStation.git", .upToNextMajor(from: "1.2.0")),
   ]
 ```
 
@@ -28,7 +28,7 @@ Once you have your Swift Packet Manager setup, add crackstation to the list of d
 
 ### The API
 
-First step is to initialise the crack station instance. This should be done once as it boots up the application and loads the look up dictionary in memory.
+First step is to initialise the crack station instance. This should be done once as it boots up the package and loads the look up dictionary in memory.
 Init finction signature - 
 
 ```
@@ -49,13 +49,13 @@ Please refer to below example which is using the CrackStation API in order to un
 ```
   import XCTest
   import Foundation
-  @testable import CrackStation
+  @testable import CrackStation // Import Statement
   
   final class CrackStationTests: XCTestCase {
     func testGetPlaneTextForHash1() throws {
         let hashString = "e69f20e9f683920d3fb4329abd951e878b1f9372"
-        let crackPswdInstance = CrackStation()
-        let value = crackPswdInstance.decrypt(shaHash: hashString)
+        let crackPswdInstance = CrackStation() // Initialise
+        let value = crackPswdInstance.decrypt(shaHash: hashString) // Calling the Public API
         
         XCTAssertEqual(value, "F")
     }
