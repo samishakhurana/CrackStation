@@ -18,7 +18,7 @@ public struct CrackStation: Decrypter {
         }
     }
     
-    static func loadDictionaryFromDisk(fileName: String) throws -> [String : String] {
+    private static func loadDictionaryFromDisk(fileName: String) throws -> [String : String] {
         guard let path = Bundle.module.url(forResource: fileName, withExtension: "json") else { return [:] }
 
         let data = try Data(contentsOf: path)
